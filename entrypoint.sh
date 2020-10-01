@@ -34,7 +34,7 @@ do
     echo $file
     for PLATFORM in "${PLATFORMS[@]}"
     do
-        conda convert --force --platform $PLATFORM $file  -o $INPUT_CONDADIR
+        conda convert --force --platform $PLATFORM $file  -o temp_build/
     done
 
 done
@@ -42,7 +42,7 @@ done
 # conda config --set anaconda_upload yes
 anaconda login --username $INPUT_CONDAUSERNAME --password $INPUT_CONDAPASSWORD
 # to upload packages to conda_recipe but not referenced th package on conda_recipe...
-find conda_build/ -name *.tar.bz2 | while read file
+find temp_build/ -name *.tar.bz2 | while read file
 do
     echo $file
     anaconda upload $file
