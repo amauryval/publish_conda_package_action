@@ -34,7 +34,7 @@ do
     echo $file
     for PLATFORM in "${PLATFORMS[@]}"
     do
-        conda convert --platform $PLATFORM $file  -o conda_build/
+        conda convert --force --platform $PLATFORM $file  -o conda_build/
     done
 
 done
