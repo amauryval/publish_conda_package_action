@@ -1,0 +1,22 @@
+name: 'Publish Conda package Action'
+description: 'Publish conda package'
+author: 'Amaury val'
+branding:
+  icon: 'package'  
+  color: 'purple'
+inputs: 
+  CondaDir:
+    description: 'Sub-directory with project'
+    default: '.'
+  Platforms: 
+    description: 'input plaftorms'
+    default: 'osx-64 linux-32 linux-64 win-32 win-64'
+  CondaUsername:
+    description: 'conda Username'
+    required: true
+  CondaPassword:
+    description: 'conda Password'
+    required: true
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
