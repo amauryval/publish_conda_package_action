@@ -9,9 +9,7 @@ PLATFORMS=( $INPUT_PLATFORMS )
 #
 
 # TEMP DIR
-rm -r temp_build
 mkdir temp_build
-rm -r conda_build
 mkdir conda_build
 
 
