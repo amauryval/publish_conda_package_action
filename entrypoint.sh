@@ -4,29 +4,36 @@ set -ex
 set -o pipefail
 
 # VARIABLES
-CHANNELS=("conda-forge")
-PLATFORMS=( $INPUT_PLATFORMS )
-#
+CHANNELS = ($INPUT_CHANNELS)
+PLATFORMS = ($INPUT_PLATFORMS)
+
+[[ " ("osx-64 linux-32 linux-64 win-32 win-64") " =~ .*\ linux-32\ .* ]];
+
+# check input parameters
+DEFAULT_PLAFORMS=("osx-64 linux-32 linux-64 win-32 win-64")
+for PLATFORM in "${PLATFORMS[@]}"
+do
+  if ! [[ " $DEFAULT_PLAFORMS " =~ .*\ $PLATFORM\ .* ]]; then
+      echo $PLATFORM" platform not supported, only one of them: "$DEFAULT_PLAFORMS
+      exit 1
+  fi
+done
+
 
 # TEMP DIR
 mkdir temp_build
-mkdir conda_build
 
-
-echo "BUILDING CONDA PACKAGE..."
-
-# to upload packages to conda_recipe
-conda config --set anaconda_upload yes
+##### BUILDING PACKAGE #####
+echo ">>>> CONDA PACKAGE BUILDING <<<<"
 
 # add channels
 for CHANNEL in $CHANNELS
 do
-	conda config --append channels $CHANNEL
-	echo "CONDA CHANNEL ADDED: "$CHANNEL
+    conda config --append channels $CHANNEL
 done
 
 # build the package
-conda build --numpy 1.17.3 --output-folder temp_build/ $INPUT_CONDADIR
+conda build --output-folder temp_build/ $INPUT_CONDADIR
 
 # convert package for each platforms
 find temp_build/ -name *.tar.bz2 | while read file
@@ -36,16 +43,21 @@ do
     do
         conda convert --force --platform $PLATFORM $file  -o temp_build/
     done
-
 done
 
-# conda config --set anaconda_upload yes
+##### Uploading on Anaconda Cloud #####
+echo ">>>> CONDA PACKAGE UPLOADING <<<<"
+
+# to upload packages
+conda config --set anaconda_upload yes
+
+# login
 anaconda login --username $INPUT_CONDAUSERNAME --password $INPUT_CONDAPASSWORD
-# to upload packages to conda_recipe but not referenced th package on conda_recipe...
+
+# to upload packages
 find temp_build/ -name *.tar.bz2 | while read file
 do
     echo $file
     anaconda upload $file
 done
 
-echo "Building conda package done!"

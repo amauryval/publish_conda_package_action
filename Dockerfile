@@ -1,6 +1,6 @@
 FROM continuumio/miniconda3:4.7.10
 
-RUN conda install -y anaconda-client conda-build conda-verify
+RUN conda install -y anaconda-client conda-build conda-verify numpy
 
 COPY entrypoint.sh /entrypoint.sh
 

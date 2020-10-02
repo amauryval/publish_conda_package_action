@@ -1,5 +1,5 @@
 # Publish Anaconda Package Action
-A Github Action to publish your Python package to Anaconda Cloud repository.
+A Github Action to publish your Python package to Anaconda Cloud.
 
 ### Example workflow
 ```yaml
@@ -16,10 +16,16 @@ jobs:
       uses: actions/checkout@v2
 
     - name: publish-to-conda
-      uses: amauryval/publish_conda_package_action@master
+      uses: amauryval/publish_conda_package_action@main
       with:
-        CondaDir: 'conda_recipe'
+        # CondaDir: locate the directory containing your meta.yml, conda_build_config.yaml (...) files
+        CondaDir: 'conda'
+        # Channels: You can add more channel with a space separator
+        Channels: 'conda-forge' 
+        # Platforms: remove one or more of these platforms
         Platforms: 'osx-64 linux-32 linux-64 win-32 win-64'
         CondaUsername: ${{ secrets.CONDA_USERNAME }}
         CondaPassword: ${{ secrets.CONDA_PASSWORD }}
 ```
+
+* Configure CONDA_USERNAME and CONDA_PASSWORD secrets on your settings repository

@@ -1,13 +1,16 @@
 name: 'Publish Conda package Action'
 description: 'Publish conda package'
-author: 'Amauryval'
+author: 'amauryval'
 branding:
   icon: 'package'  
   color: 'purple'
 inputs: 
   CondaDir:
-    description: 'Sub-directory with project'
-    default: '.'
+    description: 'directory containing your meta.yml file'
+    default: 'conda'
+  Channels:
+    description: 'Channels to use'
+    default: 'conda-forge'
   Platforms: 
     description: 'input plaftorms'
     default: 'osx-64 linux-32 linux-64 win-32 win-64'
