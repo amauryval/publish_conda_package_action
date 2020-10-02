@@ -16,7 +16,7 @@ jobs:
       uses: actions/checkout@v2
 
     - name: publish-to-conda
-      uses: amauryval/publish_conda_package_action@main
+      uses: amauryval/publish_conda_package_action@1.0.0
       with:
         # CondaDir: locate the directory containing your meta.yml, conda_build_config.yaml (...) files
         CondaDir: 'conda'
