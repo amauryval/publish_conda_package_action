@@ -7,8 +7,6 @@ set -o pipefail
 CHANNELS=($INPUT_CHANNELS)
 PLATFORMS=($INPUT_PLATFORMS)
 
-[[ " ("osx-64 linux-32 linux-64 win-32 win-64") " =~ .*\ linux-32\ .* ]];
-
 # check input parameters
 DEFAULT_PLAFORMS=("osx-64 linux-32 linux-64 win-32 win-64")
 for PLATFORM in "${PLATFORMS[@]}"
