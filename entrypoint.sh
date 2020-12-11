@@ -6,13 +6,13 @@ set -o pipefail
 # VARIABLES
 CHANNELS=($INPUT_CHANNELS)
 PLATFORMS=($INPUT_PLATFORMS)
-DEFAULT_PLAFORMS=("osx-64 linux-32 linux-64 win-32 win-64")
 
 # check input parameters
-for platform in $PLATFORMS
+DEFAULT_PLAFORMS=("osx-64 linux-32 linux-64 win-32 win-64")
+for PLATFORM in "${PLATFORMS[@]}"
 do
-  if ! [[ " $DEFAULT_PLAFORMS " =~ .*\ $platform\ .* ]]; then
-      echo $platform" platform not supported, only one of them: "$DEFAULT_PLAFORMS
+  if ! [[ " $DEFAULT_PLAFORMS " =~ .*\ $PLATFORM\ .* ]]; then
+      echo $PLATFORM" platform not supported, only one of them: "$DEFAULT_PLAFORMS
       exit 1
   fi
 done
@@ -23,11 +23,11 @@ mkdir temp_build
 
 ##### BUILDING PACKAGE #####
 echo ">>>> CONDA PACKAGE BUILDING <<<<"
+
 # add channels
-for channel in ${CHANNELS[@]}
+for CHANNEL in "${CHANNELS[@]}"
 do
-  conda config --append channels $channel
-  echo "Conda channel: "$channel" added!"
+    conda config --append channels $CHANNEL
 done
 
 # build the package
@@ -37,9 +37,9 @@ conda build --output-folder temp_build/ $INPUT_CONDADIR
 find temp_build/ -name *.tar.bz2 | while read file
 do
     echo $file
-    for platform in $PLATFORMS
+    for PLATFORM in "${PLATFORMS[@]}"
     do
-        conda convert --force --platform $platform $file  -o temp_build/
+        conda convert --force --platform $PLATFORM $file  -o temp_build/
     done
 done
 
