@@ -6,13 +6,13 @@ set -o pipefail
 # VARIABLES
 CHANNELS=($INPUT_CHANNELS)
 PLATFORMS=($INPUT_PLATFORMS)
+DEFAULT_PLAFORMS=("osx-64 linux-32 linux-64 win-32 win-64")
 
 # check input parameters
-DEFAULT_PLAFORMS=("osx-64 linux-32 linux-64 win-32 win-64")
-for PLATFORM in "${PLATFORMS[@]}"
+for platform in "${PLATFORMS[@]}"
 do
-  if ! [[ " $DEFAULT_PLAFORMS " =~ .*\ $PLATFORM\ .* ]]; then
-      echo $PLATFORM" platform not supported, only one of them: "$DEFAULT_PLAFORMS
+  if ! [[ " $DEFAULT_PLAFORMS " =~ .*\ $platform\ .* ]]; then
+      echo $platform" platform not supported, only one of them: "$DEFAULT_PLAFORMS
       exit 1
   fi
 done
@@ -23,11 +23,11 @@ mkdir temp_build
 
 ##### BUILDING PACKAGE #####
 echo ">>>> CONDA PACKAGE BUILDING <<<<"
-
 # add channels
-for CHANNEL in $CHANNELS
+for channel in ${CHANNELS[@]}
 do
-    conda config --append channels $CHANNEL
+  conda config --append channels $channel
+  echo "Conda channel: "$channel" added!"
 done
 
 # build the package
