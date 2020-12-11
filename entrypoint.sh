@@ -9,7 +9,7 @@ PLATFORMS=($INPUT_PLATFORMS)
 DEFAULT_PLAFORMS=("osx-64 linux-32 linux-64 win-32 win-64")
 
 # check input parameters
-for platform in "${PLATFORMS[@]}"
+for platform in $PLATFORMS
 do
   if ! [[ " $DEFAULT_PLAFORMS " =~ .*\ $platform\ .* ]]; then
       echo $platform" platform not supported, only one of them: "$DEFAULT_PLAFORMS
@@ -37,9 +37,9 @@ conda build --output-folder temp_build/ $INPUT_CONDADIR
 find temp_build/ -name *.tar.bz2 | while read file
 do
     echo $file
-    for PLATFORM in "${PLATFORMS[@]}"
+    for platform in $PLATFORMS
     do
-        conda convert --force --platform $PLATFORM $file  -o temp_build/
+        conda convert --force --platform $platform $file  -o temp_build/
     done
 done
 
