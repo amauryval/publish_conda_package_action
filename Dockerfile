@@ -1,7 +1,7 @@
 FROM continuumio/miniconda3:4.7.10
 
-RUN conda install -y mamba
-RUN mamba install boa -c conda-forge
+RUN conda install --yes --quiet mamba -c conda-forge
+RUN mamba install --yes --quiet boa -c conda-forge
 
 COPY entrypoint.sh /entrypoint.sh
 
