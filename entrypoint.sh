@@ -31,7 +31,7 @@ do
 done
 
 # build the package
-conda build --output-folder temp_build/ $INPUT_CONDADIR
+conda mambabuild $INPUT_CONDADIR --output-folder temp_build
 
 # convert package for each platforms
 find temp_build/ -name *.tar.bz2 | while read file
