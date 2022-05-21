@@ -1,6 +1,8 @@
 # Publish Anaconda Package Action
 A Github Action to publish your Python package to Anaconda Cloud.
 
+Starting 2.0.0, it uses mamba (from [boa](https://boa-build.readthedocs.io/en/latest/index.html) to build the package (more faster than conda build command...)
+
 ### Example workflow
 ```yaml
 name: Publish
