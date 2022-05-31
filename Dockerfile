@@ -1,4 +1,4 @@
-FROM continuumio/miniconda3:4.7.10
+FROM continuumio/miniconda3:latest
 
 RUN conda install --yes --quiet anaconda-client conda-build conda-verify numpy
 RUN conda install --yes --quiet mamba -c conda-forge
