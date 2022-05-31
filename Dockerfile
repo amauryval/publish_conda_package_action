@@ -1,8 +1,7 @@
 FROM continuumio/miniconda3:latest
 
-RUN conda install --yes --quiet anaconda-client conda-build conda-verify numpy
-RUN conda install --yes --quiet mamba -c conda-forge
-RUN mamba install --yes --quiet boa=0.11.0 -c conda-forge
+RUN conda install -y -c conda-forge mamba
+RUN mamba install -y anaconda-client conda-build conda-verify numpy boa=0.11.0
 
 COPY entrypoint.sh /entrypoint.sh
 
