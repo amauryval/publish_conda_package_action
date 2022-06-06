@@ -1,6 +1,5 @@
 FROM continuumio/miniconda3:latest
 
-RUN conda update -y -n base conda 
 RUN conda install -y -c conda-forge mamba
 RUN mamba install -y -c conda-forge anaconda-client conda-build conda-verify numpy boa=0.11.0
 
