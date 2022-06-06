@@ -8,7 +8,7 @@ CHANNELS=($INPUT_CHANNELS)
 PLATFORMS=($INPUT_PLATFORMS)
 
 # check input parameters
-DEFAULT_PLAFORMS=("osx-64 linux-32 linux-64 win-32 win-64")
+DEFAULT_PLAFORMS=("osx-64 linux-32 linux-64 win-32 win-64 noarch")
 for PLATFORM in "${PLATFORMS[@]}"
 do
   if ! [[ " $DEFAULT_PLAFORMS " =~ .*\ $PLATFORM\ .* ]]; then
@@ -34,12 +34,17 @@ done
 conda mambabuild $INPUT_CONDADIR --output-folder temp_build
 
 # convert package for each platforms
+
+
+
 find temp_build/ -name *.tar.bz2 | while read file
 do
     echo $file
     for PLATFORM in "${PLATFORMS[@]}"
     do
-        conda convert --force --platform $PLATFORM $file  -o temp_build/
+        if ["noarch" != $PLATFORM]; then
+          conda convert --force --platform $PLATFORM $file  -o temp_build/
+        fi
     done
 done
 
