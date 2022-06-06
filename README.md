@@ -25,7 +25,7 @@ jobs:
         # Channels: You can add more channel with a space separator
         Channels: 'conda-forge an-other-chan' 
         # Platforms: remove one or more of these platforms
-        Platforms: 'osx-64 linux-32 linux-64 win-32 win-64'
+        Platforms: 'osx-64 linux-32 linux-64 win-32 win-64 noarch'
         CondaUsername: ${{ secrets.CONDA_USERNAME }}
         CondaPassword: ${{ secrets.CONDA_PASSWORD }}
 ```
